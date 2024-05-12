@@ -1,22 +1,21 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { axiosInstance} from "../../api/api";
+import { axiosInstance } from "../../api/api";
 
-interface MainState {
+interface Search {
   data: Object[];
   status: "idle" | "loading" | "succeeded" | "failed";
   error: string | null;
-  inputValue:string
+  inputValue: string;
+  searchedModalOpen: boolean;
 }
 
-// Initial state
-const initialState: MainState = {
+const initialState: Search = {
   data: [],
   status: "idle",
   error: null,
-  inputValue:""
+  inputValue: "",
+  searchedModalOpen: false,
 };
-
-// Async thunks
 
 export const fetchSearchedAsync = createAsyncThunk(
   "search/fetchSearched",
@@ -34,7 +33,6 @@ export const fetchSearchedAsync = createAsyncThunk(
   }
 );
 
-// Slice
 const SearchSlice = createSlice({
   name: "search",
   initialState,
@@ -42,8 +40,11 @@ const SearchSlice = createSlice({
     clearSearched(state) {
       state.data = [];
     },
-    setInputValue(state ,action) {
-      state.inputValue = action.payload
+    setInputValue(state, action) {
+      state.inputValue = action.payload;
+    },
+    triggerSearchedModal(state) {
+      state.searchedModalOpen = !state.searchedModalOpen;
     },
   },
   extraReducers: (builder) => {
@@ -54,6 +55,7 @@ const SearchSlice = createSlice({
       })
       .addCase(fetchSearchedAsync.fulfilled, (state, action) => {
         state.data = action.payload;
+        state.searchedModalOpen = state.data && true;
       })
       .addCase(fetchSearchedAsync.rejected, (state, action) => {
         state.status = "failed";
@@ -62,6 +64,7 @@ const SearchSlice = createSlice({
   },
 });
 
-export const { clearSearched,setInputValue } = SearchSlice.actions;
+export const { clearSearched, setInputValue, triggerSearchedModal } =
+  SearchSlice.actions;
 
 export default SearchSlice.reducer;

@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { axiosInstance,} from "../../api/api";
+import { axiosInstance } from "../../api/api";
 
-interface MainState {
+interface MostPopular {
   movieData: Object[];
   moviesStatus: "idle" | "loading" | "succeeded" | "failed";
   moviesError: string | null;
@@ -10,8 +10,7 @@ interface MainState {
   tvSerialError: string | null;
 }
 
-// Initial state
-const initialState: MainState = {
+const initialState: MostPopular = {
   movieData: [],
   moviesStatus: "idle",
   moviesError: null,
@@ -19,8 +18,6 @@ const initialState: MainState = {
   tvSerialStatus: "idle",
   tvSerialError: null,
 };
-
-// Async thunks
 
 export const fetchMostPopularAsync = createAsyncThunk(
   "mostPopular/fetchMostPopular",
@@ -44,7 +41,6 @@ export const fetchMostPopularAsync = createAsyncThunk(
   }
 );
 
-// Slice
 const MostPopularSlice = createSlice({
   name: "mostPopular",
   initialState,

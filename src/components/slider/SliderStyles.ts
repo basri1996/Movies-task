@@ -1,3 +1,4 @@
+import Carousel from "react-multi-carousel";
 import styled, { keyframes } from "styled-components";
 const moveTopAnimation = keyframes`
   0% {
@@ -153,4 +154,42 @@ export const SectionTitle = styled.h1`
   color: ${(props) => props.theme.colors.Blue};
   /* padding :25px; */
   padding: 25px 0;
+`;
+
+
+export const CustomCarousel = styled(Carousel)`
+  .react-multiple-carousel__arrow {
+    background-color: ${(props) => props.theme.colors.LightBlue};
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+    cursor: pointer;
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+
+  .react-multiple-carousel__arrow--left {
+    left: 8px;
+  }
+
+  .react-multiple-carousel__arrow--right {
+    right: 35px;
+    @media (min-width: 640px) {
+      right: 33.5px;
+    }
+    @media (min-width: 1024px) {
+      right: 32px;
+    }
+    @media (min-width: 1301px) {
+      right: 20px;
+    }
+  }
 `;

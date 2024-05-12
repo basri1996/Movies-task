@@ -4,7 +4,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { useDispatch } from "react-redux";
 import { fetchSearchedAsync } from "../redux/slices/TrendingMoviesSlice";
 import { useSelector } from "react-redux";
-import UseSizeDetector from "../hooks/UseSizeDetector";
+import UseSizeDetector from "../hooks/useSizeDetector";
 
 const InputComponents = () => {
   const dispatch = useDispatch<any>();

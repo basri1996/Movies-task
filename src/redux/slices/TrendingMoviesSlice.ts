@@ -1,42 +1,61 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { axiosInstance} from "../../api/api";
+import { axiosInstance } from "../../api/api";
 
-interface MainState {
+interface TrendingMovies {
   data: Object[];
   status: "idle" | "loading" | "succeeded" | "failed";
   error: string | null;
-  filmUrl:string
+  filmUrl: string;
+  videoModalOpen: boolean;
 }
 
-// Initial state
-const initialState: MainState = {
+const initialState: TrendingMovies = {
   data: [],
   status: "idle",
   error: null,
-  filmUrl:""
+  filmUrl: "",
+  videoModalOpen: false,
 };
 
-// Async thunks
 export const fetchTrendyMoviesAsync = createAsyncThunk(
   "trendingMovies/fetchTrendyMovies",
   async () => {
     try {
-      const response = await axiosInstance.get("trending/movie/day?language=en-US");
+      const response = await axiosInstance.get(
+        "trending/movie/day?language=en-US"
+      );
       return response?.data.results;
     } catch (error) {
-      throw error; 
+      throw error;
     }
   }
 );
 
-// Slice
+export const fetchMovieTrailerAsync = createAsyncThunk(
+  "trendingMovies/fetchMovieTrailer",
+  async (movieId: string) => {
+    try {
+      const response = await axiosInstance.get(
+        `movie/${movieId}/videos?language=en-US`
+      );
+      const Url = `https://www.youtube.com/embed/${response.data.results[1]?.key}`;
+      return Url;
+    } catch (error) {
+      throw error;
+    }
+  }
+);
+
 const TrendingMoviesSlice = createSlice({
   name: "trendingMovies",
   initialState,
   reducers: {
-    setFilmUrl(state, action){
-      state.filmUrl=action.payload
-    }
+    setFilmUrl(state, action) {
+      state.filmUrl = action.payload;
+    },
+    triggerVideoModal(state) {
+      state.videoModalOpen = !state.videoModalOpen;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -50,11 +69,14 @@ const TrendingMoviesSlice = createSlice({
       .addCase(fetchTrendyMoviesAsync.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message ?? "An error occurred";
+      })
+      .addCase(fetchMovieTrailerAsync.fulfilled, (state, action) => {
+        state.filmUrl = action.payload;
+        state.videoModalOpen = true;
       });
   },
 });
 
-export const { setFilmUrl } = TrendingMoviesSlice.actions;
-
+export const { setFilmUrl, triggerVideoModal } = TrendingMoviesSlice.actions;
 
 export default TrendingMoviesSlice.reducer;

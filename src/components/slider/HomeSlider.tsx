@@ -1,23 +1,15 @@
 import "react-multi-carousel/lib/styles.css";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 import {
+  fetchMovieTrailerAsync,
   fetchTrendyMoviesAsync,
-  setFilmUrl,
+  triggerVideoModal,
 } from "../../redux/slices/TrendingMoviesSlice";
 import { useDispatch, useSelector } from "react-redux";
-import UseSizeDetector from "../../hooks/UseSizeDetector";
-import {
-  FilmTitle,
-  HeaderDiv,
-  LogoImg,
-  PlayButtonImage,
-  TitleDiv,
-  TitleWrapper,
-} from "../SliderItemStyles";
+import useSizeDetector from "../../hooks/useSizeDetector";
 import logo from "../../../public/assets/images/logo.png";
 import playButton from "../../../public/assets/images/play-button.png";
 import Modal from "../ui/Modal";
-import { getMovieTrailer } from "../../api/api";
 import {
   CustomCarousel,
   HomeCarouselWrapper,
@@ -29,31 +21,36 @@ import {
   SearchedItemsDivWrapper,
   Title,
   Wrapper,
+  FilmTitle,
+  HeaderDiv,
+  LogoImg,
+  PlayButtonImage,
+  TitleDiv,
+  TitleWrapper,
 } from "./HomeSliderStyles";
-// import InputComponents from "../InputComponent";
 import VideoPlayer from "../VideoPlayer";
 import { Input } from "@mui/material";
 import debounce from "debounce";
-import { clearSearched, fetchSearchedAsync, setInputValue } from "../../redux/slices/SearchSlice";
+import {
+  clearSearched,
+  fetchSearchedAsync,
+  setInputValue,
+  triggerSearchedModal,
+} from "../../redux/slices/SearchSlice";
 
 function HomeSlider() {
   const dispatch = useDispatch<any>();
-  const { data : TrendingMovies,filmUrl} = useSelector((state: any) => state.trendingMovies
-  );
-  const { data : Searched,inputValue} = useSelector((state: any) => state.search
-  );
-  const { innerHeight, innerWidth } = UseSizeDetector();
-  const [modalOpen, setModalOpen] = useState<boolean>(false);
-  const [modalOpen2, setModalOpen2] = useState<boolean>(false);
-  const renderCount = useRef(0);
-
-  useEffect(() => {
-    renderCount.current += 1;
-    console.log("Component re-render count:", renderCount.current);
-  });
-  useEffect(() => {
-    console.log("Parent mounted");
-  }, []);
+  const {
+    data: TrendingMovies,
+    filmUrl,
+    videoModalOpen,
+  } = useSelector((state: any) => state.trendingMovies);
+  const {
+    data: Searched,
+    inputValue,
+    searchedModalOpen,
+  } = useSelector((state: any) => state.search);
+  const { innerHeight, innerWidth } = useSizeDetector();
 
   const responsive = {
     mobile: {
@@ -66,36 +63,26 @@ function HomeSlider() {
     dispatch(fetchTrendyMoviesAsync());
   }, [dispatch]);
 
- 
-
   const handlePlay = async (id: any) => {
-    const FilmTrailer = await getMovieTrailer(id);
-    const Url = `https://www.youtube.com/embed/${
-      FilmTrailer && FilmTrailer.data.results[1]?.key
-    }`;
-    dispatch(setFilmUrl(Url));
-    setModalOpen(true);
+    dispatch(fetchMovieTrailerAsync(id));
   };
 
   const handleModal = () => {
-    setModalOpen(false);
+    dispatch(triggerVideoModal());
   };
   const handleModal2 = () => {
-    setModalOpen2(false);
+    dispatch(triggerSearchedModal());
   };
 
-  // place where i make request
 
   const sendRequest = useCallback(
     async (value: string) => {
       if (value !== "") {
         dispatch(fetchSearchedAsync(value));
-        Searched && setModalOpen2(true);
-      }else{
-        dispatch(clearSearched())
+      } else {
+        dispatch(clearSearched());
       }
     },
-
     [dispatch]
   );
 
@@ -114,14 +101,18 @@ function HomeSlider() {
       {TrendingMovies && (
         <HomeCarouselWrapper>
           {filmUrl && (
-            <Modal isOpen={modalOpen} onClose={handleModal} isCentered={true}>
+            <Modal
+              isOpen={videoModalOpen}
+              onClose={handleModal}
+              isCentered={true}
+            >
               <VideoPlayer url={filmUrl} />
             </Modal>
           )}
-          {Searched && modalOpen2 ? (
+          {Searched && searchedModalOpen ? (
             <>
               <Modal
-                isOpen={modalOpen2}
+                isOpen={searchedModalOpen}
                 onClose={handleModal2}
                 isCentered={false}
               >
@@ -152,9 +143,6 @@ function HomeSlider() {
           ) : null}
           <HeaderDiv>
             <LogoImg src={logo} alt="logo" />
-            {/* <InputComponents
-             
-            /> */}
             <Input
               value={inputValue}
               fullWidth

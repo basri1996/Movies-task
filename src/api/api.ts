@@ -11,14 +11,6 @@ export const axiosInstance = axios.create({
 });
 
 
-export const getMovieTrailer = async (movieId :string) => {
-  try {
-    const response = await axiosInstance.get(`movie/${movieId}/videos?language=en-US`);
-    return response;
-  } catch (error) {
-    throw error;
-  }
-};
 
 
 

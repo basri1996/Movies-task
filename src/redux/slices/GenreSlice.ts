@@ -1,20 +1,17 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { axiosInstance} from "../../api/api";
+import { axiosInstance } from "../../api/api";
 
-interface MainState {
+interface Genre {
   genre: Object[];
   status: "idle" | "loading" | "succeeded" | "failed";
   error: string | null;
 }
 
-// Initial state
-const initialState: MainState = {
+const initialState: Genre = {
   genre: [],
   status: "idle",
   error: null,
 };
-
-// Async thunks
 
 export const fetchAllGenresAsync = createAsyncThunk(
   "genre/fetchAllGenres",
@@ -41,7 +38,6 @@ export const fetchAllGenresAsync = createAsyncThunk(
   }
 );
 
-// Slice
 const GenreSlice = createSlice({
   name: "genre",
   initialState,

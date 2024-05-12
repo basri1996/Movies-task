@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-function UseSizeDetector() {
+function useSizeDetector() {
   const [innerHeight, setInnerHeight] = useState<number | undefined>();
   const [innerWidth, setInnerWidth] = useState<number | undefined>();
 
@@ -23,4 +23,4 @@ function UseSizeDetector() {
   return { innerHeight, innerWidth };
 }
 
-export default UseSizeDetector;
+export default useSizeDetector;
