@@ -1,0 +1,5 @@
+const ProductDetail = () => {
+  return <div>product</div>;
+};
+
+export default ProductDetail;
