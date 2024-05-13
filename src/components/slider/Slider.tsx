@@ -7,7 +7,7 @@ import {
 import "react-multi-carousel/lib/styles.css";
 import Slide from "./Slide";
 import { useEffect } from "react";
-import { fetchMostPopularAsync } from "../../redux/slices/MostPopularSlice";
+import { fetchMostPopularAsync } from "../../redux/features/mostpopular/MostPopularThunk";
 import { useDispatch, useSelector } from "react-redux";
 
 function Slider({ title }: any) {

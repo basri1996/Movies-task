@@ -4,7 +4,7 @@ import Swiper from "swiper";
 import { Button } from "@mui/material";
 import { SectionTitle } from "./SliderStyles";
 import useSizeDetector from "../../hooks/useSizeDetector"
-import { fetchAllGenresAsync } from "../../redux/slices/GenreSlice";
+import { fetchAllGenresAsync } from "../../redux/features/genre/GenreThunk"
 import {
   SliderWrapper,
   SwiperContainer,

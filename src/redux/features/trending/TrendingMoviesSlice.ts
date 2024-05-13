@@ -1,5 +1,5 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { axiosInstance } from "../../api/api";
+import { createSlice } from "@reduxjs/toolkit";
+import { fetchMovieTrailerAsync, fetchTrendyMoviesAsync } from "./TrendingMoviesThunk";
 
 interface TrendingMovies {
   data: Object[];
@@ -17,34 +17,6 @@ const initialState: TrendingMovies = {
   videoModalOpen: false,
 };
 
-export const fetchTrendyMoviesAsync = createAsyncThunk(
-  "trendingMovies/fetchTrendyMovies",
-  async () => {
-    try {
-      const response = await axiosInstance.get(
-        "trending/movie/day?language=en-US"
-      );
-      return response?.data.results;
-    } catch (error) {
-      throw error;
-    }
-  }
-);
-
-export const fetchMovieTrailerAsync = createAsyncThunk(
-  "trendingMovies/fetchMovieTrailer",
-  async (movieId: string) => {
-    try {
-      const response = await axiosInstance.get(
-        `movie/${movieId}/videos?language=en-US`
-      );
-      const Url = `https://www.youtube.com/embed/${response.data.results[1]?.key}`;
-      return Url;
-    } catch (error) {
-      throw error;
-    }
-  }
-);
 
 const TrendingMoviesSlice = createSlice({
   name: "trendingMovies",

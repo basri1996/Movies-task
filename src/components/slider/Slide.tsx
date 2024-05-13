@@ -1,9 +1,6 @@
-import { Link } from "react-router-dom";
-import { ImageFilm, ShopItemName, ShopItemWrapper } from "./SliderStyles";
-import styled from "styled-components";
-const StyledLink = styled(Link)`
-  text-decoration: none;
-`;
+
+import { ImageFilm, ShopItemName, ShopItemWrapper, StyledLink } from "./SliderStyles";
+
 
 function Slide({ film ,title,id }:any) {
   return (

@@ -48,44 +48,20 @@ export const CustomCarousel = styled(Carousel)`
   }
 `;
 
-export const ImageFilm = styled.img<{ height: string }>`
+export const ImageFilm = styled.img`
   width: 100%;
-  height: calc(${(props) => props.height} / 2.5);
+  height:300px;
   @media (min-width: 500px) {
-    height: calc(${(props) => props.height} / 2);
+    height:400px
   }
   @media (min-width: 768px) {
-    height: calc(${(props) => props.height} / 1.5);
+    height: 600px
   }
   @media (min-width: 1054px) {
-    height: ${(props) => props.height};
+    height: 100vh
   }
 `;
 
-
-export const SearchedItemsDivWrapper = styled.div`
-display: flex;
-flex-direction: column;
-gap: 10px;
-padding: 10px;
-background-color: ${(props) => props.theme.colors.LightBlue};
-position: absolute;
-right: 20px;
-top: 60px;
-z-index: 999;
-@media (min-width: 500px) {
-  right: 30px;
-}
-@media (min-width: 768px) {
-  top: 75px;
-}
-@media (min-width: 768px) {
-  right: 40px;
-}
-@media (min-width: 1054px) {
-  right: 50px;
-}
-`;
 export const Title = styled.h1`
 font-size: 12px;
 width: 50px;
@@ -93,34 +69,6 @@ width: 50px;
   width: 100px;
 }
 `;
-
-export const SearchedImage = styled.img`
-width: 70px;
-height: 70px;
-@media (min-width: 768px) {
-  width: 100px;
-  height: 100px;
-}
-`;
-export const SearchedItemWrapper = styled.div`
-display: flex;
-gap: 5px;
-`;
-export const SearchedInformationWrapper = styled.div`
-display: flex;
-flex-direction: column;
-`;
-export const SearchedItemDescription = styled.p`
-font-size: 9px;
-width: 50px;
-height: 50px;
-overflow: hidden;
-@media (min-width: 768px) {
-  width: 70px;
-  height: 70px;
-}
-`;
-
 export const Wrapper = styled.div`
 width: 100%;
 `;
@@ -139,20 +87,6 @@ const center = () => `
 export const CenterDiv = styled.div`
  ${center()};`
 
-export const SliderImage = styled.img<{ height: string }>`
-  width: 100%;
-  height: calc(${(props) => props.height} / 4);
-  @media (min-width: 500px) {
-    
-    height: calc(${(props ) => props.height} / 2.5);
-  }
-  @media (min-width: 768px) {
-    height: calc(${(props) => props.height} / 1.5);
-  }
-  @media (min-width: 1054px) {
-    height: ${(props) => props.height};
-  }
-`;
 
 export const ArrowDiv = styled.div`
   width: 100%;
@@ -256,14 +190,15 @@ width:100%;
 
 export const TitleWrapper = styled.div`
   ${center()};
-  gap: 20px;
+  gap:10px;
 `;
 
 export const FilmTitle = styled.h1`
-  font-size: 13px;
+  font-size: 12px;
+  
   color: ${(props) => props.theme.colors.LightBlue};
   @media (min-width: 500px) {
-    font-size: 22px;
+    font-size: 18px;
   }
   @media (min-width: 768px) {
     font-size: 30px;
@@ -273,3 +208,17 @@ export const FilmTitle = styled.h1`
   }
 `;
 export const PlayButtonImage = styled(ArrowImg1)``;
+
+export const ButtonDiv=styled.div`
+display:flex;
+justify-content:center;
+align-items:center;
+height:36px;`
+
+
+export const StyledButton = {
+  fontFamily: "Red Rose",
+  background: "#66b6d2",
+  maxHeight: "36px",
+  fontSize: "10px",
+};

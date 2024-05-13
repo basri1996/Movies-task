@@ -1,5 +1,5 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { axiosInstance } from "../../api/api";
+import { createSlice } from "@reduxjs/toolkit";
+import { fetchSearchedAsync } from "./SearchThunk";
 
 interface Search {
   data: Object[];
@@ -17,21 +17,6 @@ const initialState: Search = {
   searchedModalOpen: false,
 };
 
-export const fetchSearchedAsync = createAsyncThunk(
-  "search/fetchSearched",
-  async (title: string) => {
-    try {
-      const apiKey = import.meta.env.VITE_APP_API_KEY;
-      const response = await axiosInstance.get(
-        `search/multi?query=${title}&api_key=${apiKey}`
-      );
-      return response.data.results;
-    } catch (error) {
-      console.error("Error fetching data:", error);
-      throw error;
-    }
-  }
-);
 
 const SearchSlice = createSlice({
   name: "search",

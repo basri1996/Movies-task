@@ -1,4 +1,5 @@
 import Carousel from "react-multi-carousel";
+import { Link } from "react-router-dom";
 import styled, { keyframes } from "styled-components";
 const moveTopAnimation = keyframes`
   0% {
@@ -193,3 +194,8 @@ export const CustomCarousel = styled(Carousel)`
     }
   }
 `;
+
+export const StyledLink = styled(Link)`
+  text-decoration: none;
+`;
+

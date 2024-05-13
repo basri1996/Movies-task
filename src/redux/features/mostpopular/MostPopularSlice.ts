@@ -1,5 +1,5 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { axiosInstance } from "../../api/api";
+import {  createSlice } from "@reduxjs/toolkit";
+import { fetchMostPopularAsync } from "./MostPopularThunk";
 
 interface MostPopular {
   movieData: Object[];
@@ -19,27 +19,7 @@ const initialState: MostPopular = {
   tvSerialError: null,
 };
 
-export const fetchMostPopularAsync = createAsyncThunk(
-  "mostPopular/fetchMostPopular",
-  async (mediaType: "movie" | "tv") => {
-    try {
-      const response = await axiosInstance.get(
-        `${mediaType}/popular?language=en-US&page=1`
-      );
-      if (mediaType === "movie") {
-        const filteredMovies = response?.data.results.filter(
-          (item: any) => item.original_title !== "Un père idéal"
-        );
-        return { data: filteredMovies, title: mediaType };
-      } else {
-        return { data: response?.data.results, title: mediaType };
-      }
-    } catch (error) {
-      console.error("Error fetching data:", error);
-      throw error;
-    }
-  }
-);
+
 
 const MostPopularSlice = createSlice({
   name: "mostPopular",

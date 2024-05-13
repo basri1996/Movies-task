@@ -1,8 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
-import TrendingMoviesReducer from "./slices/TrendingMoviesSlice";
-import GenreReducer from "./slices/GenreSlice"
-import MostPopularReducer from "./slices/MostPopularSlice"
-import SearchReducer from "./slices/SearchSlice"
+import TrendingMoviesReducer from "./features/trending/TrendingMoviesSlice";
+import GenreReducer from "./features/genre/GenreSlice"
+import MostPopularReducer from "./features/mostpopular/MostPopularSlice"
+import SearchReducer from "./features/search/SearchSlice"
 
 const store = configureStore({
   reducer: {
