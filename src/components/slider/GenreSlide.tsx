@@ -14,7 +14,7 @@ import {
 
 const GenreSlide = () => {
   const dispatch = useDispatch<any>();
-  const { genre } = useSelector((state: any) => state.genre);
+  const { genre} = useSelector((state : any) => state.genre);
   const [swiper, setSwiper] = useState<any>(null);
   const { innerWidth } = useSizeDetector();
 

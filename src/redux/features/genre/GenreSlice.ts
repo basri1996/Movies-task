@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchAllGenresAsync } from "./GenreThunk";
 
-interface Genre {
+ interface Genre {
   genre: Object[];
   status: "idle" | "loading" | "succeeded" | "failed";
   error: string | null;
