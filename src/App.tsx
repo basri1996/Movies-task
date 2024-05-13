@@ -1,11 +1,9 @@
-
 import { ThemeProvider } from "styled-components";
 import GlobalStyles from "./GlobalStyles";
 import { defaultTheme } from "./defaultTheme";
 import { Helmet } from "react-helmet";
 import { Routes, Route } from "react-router-dom";
-
-import ProductDetail from "./page/ProductDetail";
+import ContentDetail from "./page/ContentDetail";
 import Home from "./page/Home";
 import Footer from "./components/Footer";
 
@@ -24,7 +22,7 @@ function App() {
 
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/contentdetail :id" element={<ProductDetail />} />
+        <Route path="/contentdetail :id" element={<ContentDetail />} />
       </Routes>
       <Footer/>
     </ThemeProvider>
