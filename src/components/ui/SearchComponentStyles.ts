@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export const SearchedItemsDivWrapper = styled.div`
+ 
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -9,12 +10,15 @@ export const SearchedItemsDivWrapper = styled.div`
   position: absolute;
   right: 20px;
   top: 35px;
+  border-radius:10px;
   z-index: 999;
+  width:150px;
   @media (min-width: 500px) {
     right: 30px;
   }
   @media (min-width: 768px) {
     top: 60px;
+    width:250px;
   }
   @media (min-width: 768px) {
     right: 40px;
@@ -26,6 +30,7 @@ export const SearchedItemsDivWrapper = styled.div`
 export const Title = styled.h1`
   font-size: 12px;
   width: 50px;
+  color:${props=>props.theme.colors.Blue};
   @media (min-width: 768px) {
     width: 100px;
   }
@@ -33,10 +38,10 @@ export const Title = styled.h1`
 
 export const SearchedImage = styled.img`
   width: 70px;
-  height: 70px;
+  height: 100px;
   @media (min-width: 768px) {
     width: 100px;
-    height: 100px;
+    height: 140px;
   }
 `;
 export const SearchedItemWrapper = styled.div`
@@ -48,13 +53,13 @@ export const SearchedInformationWrapper = styled.div`
   flex-direction: column;
 `;
 export const SearchedItemDescription = styled.p`
-  font-size: 9px;
-  width: 50px;
+  font-size: 10px;
+  width: 90%;
   height: 50px;
   overflow: hidden;
+  color:white;
   @media (min-width: 768px) {
-    width: 70px;
-    height: 70px;
+    height: 65px;
   }
 `;
 

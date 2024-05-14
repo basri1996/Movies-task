@@ -20,40 +20,38 @@ import {
   TitleDiv,
   TitleWrapper,
   StyledButton,
+  responsive,
 } from "./HomeSliderStyles";
 import VideoPlayer from "../VideoPlayer";
 import { Button } from "@mui/material";
 import { StyledLink } from "../slider/SliderStyles";
 import SearchComponent from "../ui/SearchComponent";
 import { fetchMovieTrailerAsync, fetchTrendyMoviesAsync } from "../../redux/features/trending/TrendingMoviesThunk";
+import { contentImageUrl } from "../../redux/constants";
+import { RootState } from "../../redux/StoreTypes";
 
 function HomeSlider() {
   const dispatch = useDispatch<any>();
   const {
-    data: TrendingMovies,
+    movieData,
     filmUrl,
     videoModalOpen,
-  } = useSelector((state: any) => state.trendingMovies);
+  } = useSelector(({trendingMovies}:RootState) => trendingMovies);
   const {
     data: Searched,
     inputValue,
     searchedModalOpen,
-  } = useSelector((state: any) => state.search);
+  } = useSelector((state: RootState) => state.search);
   const { innerWidth } = useSizeDetector();
+  const MediaType="movie"
 
-  const responsive = {
-    mobile: {
-      breakpoint: { max: 5000, min: 0 },
-      items: 1,
-    },
-  };
-
+ 
   useEffect(() => {
     dispatch(fetchTrendyMoviesAsync());
   }, [dispatch]);
 
-  const handlePlay = async (id: any) => {
-    dispatch(fetchMovieTrailerAsync(id));
+  const handlePlay = async (id: number) => {
+    dispatch(fetchMovieTrailerAsync({id,MediaType}));
   };
 
   const handleModal = () => {
@@ -64,7 +62,7 @@ function HomeSlider() {
 
   return (
     <>
-      {TrendingMovies && (
+      {movieData && (
         <HomeCarouselWrapper>
           {filmUrl && (
             <Modal
@@ -77,7 +75,9 @@ function HomeSlider() {
           )}
 
           <HeaderDiv>
+            <StyledLink to="/">
             <LogoImg src={logo} alt="logo" />
+            </StyledLink>
             <SearchComponent
               inputValue={inputValue}
               Searched={Searched}
@@ -88,16 +88,17 @@ function HomeSlider() {
             <CustomCarousel
               responsive={responsive}
               infinite={true}
-              autoPlaySpeed={3000}
+              autoPlay
+              autoPlaySpeed={2000}
               customTransition="transform 300ms ease-in-out"
               transitionDuration={300}
               containerClass="carousel-container"
             >
-              {TrendingMovies &&
-                TrendingMovies.map((film: any) => (
+              {movieData &&
+                movieData.map((film) => (
                   <div key={film.id}>
                     <ImageFilm
-                      src={`https://image.tmdb.org/t/p/original${film.backdrop_path}`}
+                      src={contentImageUrl(film.backdrop_path)}
                       alt="cover"
                     />
                     <TitleDiv>
@@ -109,7 +110,7 @@ function HomeSlider() {
                           alt="play"
                         />
                       </TitleWrapper>
-                      <StyledLink to={`/contentdetail/${film.id}`}>
+                      <StyledLink to={`/contentdetail/movie/${film.id}`}>
                         <Button
                           size={
                             innerWidth && innerWidth > 500 ? "large" : "small"

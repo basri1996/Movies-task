@@ -1,6 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { axiosInstance } from "../../../api/api";
 import { genreUrl } from "../../constants";
+import { Genre } from "./GenreTypes";
 
 export const fetchAllGenresAsync = createAsyncThunk(
     "genre/fetchAllGenres",
@@ -12,7 +13,7 @@ export const fetchAllGenresAsync = createAsyncThunk(
         const tvGenresresponse = await axiosInstance.get(
           genreUrl("tv")
         );
-        const finalResult: Object[] = [];
+        const finalResult: Genre[] = [];
         [
           ...movieGenresresponse?.data.genres,
           ...tvGenresresponse?.data.genres,
@@ -21,7 +22,6 @@ export const fetchAllGenresAsync = createAsyncThunk(
             finalResult.push(item);
           }
         });
-        console.log(finalResult);
         return finalResult;
       } catch (error) {
         console.error("Error fetching data:", error);

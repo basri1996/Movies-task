@@ -1,13 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchSearchedAsync } from "./SearchThunk";
+import { Search } from "./SearchTypes";
 
-interface Search {
-  data: Object[];
-  status: "idle" | "loading" | "succeeded" | "failed";
-  error: string | null;
-  inputValue: string;
-  searchedModalOpen: boolean;
-}
+
 
 const initialState: Search = {
   data: [],

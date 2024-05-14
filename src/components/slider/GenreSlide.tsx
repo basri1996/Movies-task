@@ -6,15 +6,21 @@ import { SectionTitle } from "./SliderStyles";
 import useSizeDetector from "../../hooks/useSizeDetector"
 import { fetchAllGenresAsync } from "../../redux/features/genre/GenreThunk"
 import {
+  ArrowImg1,
   SliderWrapper,
   SwiperContainer,
   SwiperSlide,
   SwiperWrapper,
 } from "./GenreSlideStyles";
+import arrow from "../../../public/assets/images/arrow.png"
+import arrow1 from "../../../public/assets/images/arrow1.png"
+import styled from "styled-components";
+import { RootState } from "../../redux/StoreTypes";
+
 
 const GenreSlide = () => {
   const dispatch = useDispatch<any>();
-  const { genre} = useSelector((state : any) => state.genre);
+  const { genre} = useSelector(({genre}:RootState) => genre);
   const [swiper, setSwiper] = useState<any>(null);
   const { innerWidth } = useSizeDetector();
 
@@ -68,25 +74,33 @@ const GenreSlide = () => {
   };
 
   return (
-    <div style={{ marginTop: "50px" }}>
+    <GenreSliderWrapper>
       <SliderWrapper>
         <SectionTitle>Popular Genres</SectionTitle>
       </SliderWrapper>
       <SliderWrapper>
-        <Button variant="text" onClick={handlePrevSlide} children={"Prev"} />
+        <Button variant="text" onClick={handlePrevSlide} startIcon={<ArrowImg1 src={arrow1} alt="arrow"/>} />
         <SwiperContainer className="swiper">
           <SwiperWrapper className="swiper-wrapper">
-            {genre.map((genre: any) => (
+            {genre.map((genre) => (
               <SwiperSlide key={genre.id} className="swiper-slide">
                 {genre.name}
               </SwiperSlide>
             ))}
           </SwiperWrapper>
         </SwiperContainer>
-        <Button variant="text" onClick={handleNextSlide} children={"Next"} />
+        <Button variant="text" onClick={handleNextSlide} startIcon={<ArrowImg1 src={arrow} alt="arrow1"/>} />
       </SliderWrapper>
-    </div>
+    </GenreSliderWrapper>
   );
 };
 
 export default GenreSlide;
+
+export const GenreSliderWrapper = styled.div`
+  display:flex;
+  justify-content:center;
+  align-items:"center";
+  flex-direction:column;
+  margin-top:50px
+`

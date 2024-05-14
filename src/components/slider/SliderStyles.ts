@@ -142,12 +142,9 @@ export const Triangle = styled.div`
   border-left: 7px solid black;
 `;
 
-export const ImageFilm = styled.div<{ img: string }>`
+export const ImageFilm = styled.img`
   width: 285px;
   height: 382px;
-  background-image: url(${(props) => props.img});
-  background-size: cover;
-  background-position: center;
 `;
 
 export const SectionTitle = styled.h1`
@@ -168,7 +165,6 @@ export const CustomCarousel = styled(Carousel)`
     justify-content: center;
     align-items: center;
     position: absolute;
-    top: 50%;
     transform: translateY(-50%);
     z-index: 1;
     cursor: pointer;
@@ -198,4 +194,24 @@ export const CustomCarousel = styled(Carousel)`
 export const StyledLink = styled(Link)`
   text-decoration: none;
 `;
+
+
+export const responsive = {
+  superLargeDesktop: {
+    breakpoint: { max: 4000, min: 1301 },
+    items: 4,
+  },
+  desktop: {
+    breakpoint: { max: 1300, min: 1024 },
+    items: 3,
+  },
+  tablet: {
+    breakpoint: { max: 1023, min: 640 },
+    items: 2,
+  },
+  mobile: {
+    breakpoint: { max: 639, min: 0 },
+    items: 1,
+  },
+};
 

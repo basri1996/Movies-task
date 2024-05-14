@@ -1,16 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchMovieTrailerAsync, fetchTrendyMoviesAsync } from "./TrendingMoviesThunk";
+import { TrendingMovies } from "./TrendingMoviesTypes";
 
-interface TrendingMovies {
-  data: Object[];
-  status: "idle" | "loading" | "succeeded" | "failed";
-  error: string | null;
-  filmUrl: string;
-  videoModalOpen: boolean;
-}
 
 const initialState: TrendingMovies = {
-  data: [],
+  movieData: [],
   status: "idle",
   error: null,
   filmUrl: "",
@@ -36,7 +30,7 @@ const TrendingMoviesSlice = createSlice({
       })
       .addCase(fetchTrendyMoviesAsync.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.data = action.payload;
+        state.movieData = action.payload;
       })
       .addCase(fetchTrendyMoviesAsync.rejected, (state, action) => {
         state.status = "failed";

@@ -39,3 +39,25 @@ export const SliderWrapper = styled.div`
   align-items: center;
   margin-bottom:50px;
 `;
+
+
+export const ArrowImg1 = styled.img`
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  &:hover {
+    opacity: 0.7;
+  }
+  @media (min-width: 500px) {
+    width: 35px;
+    height: 35px;
+  }
+  @media (min-width: 768px) {
+    width: 40px;
+    height: 40px;
+  }
+  @media (min-width: 1054px) {
+    width: 50px;
+    height: 50px;
+  }
+`;

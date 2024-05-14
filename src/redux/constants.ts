@@ -4,10 +4,14 @@ const genreUrl = (type: string) => `genre/${type}/list?language=en`;
 const SearchUrl = (title: string, apiKey: string) =>
   `search/multi?query=${title}&api_key=${apiKey}`;
 const trendingMoviesUrl = () => "trending/movie/day?language=en-US";
-const movieTrailerUrl = (movieId: string) =>
-  `movie/${movieId}/videos?language=en-US`;
+const movieTrailerUrl = (movieId: number,type:string) =>
+  `${type}/${movieId}/videos?language=en-US`;
 const youtubeEmbedUrl = (urlKey: string) =>
   `https://www.youtube.com/embed/${urlKey}`;
+const contentImageUrl =(path :string)=> `https://image.tmdb.org/t/p/original${path}`
+const fetchByIdUrl =(id:number ,mediaType:string)=>`${mediaType}/${+id}?language=en-US`
+const fetchCreditsByIdUrl =(type:string , id:string)=>`${type}/${id}/credits
+`
 
 export {
   mostPopularUrl,
@@ -16,4 +20,7 @@ export {
   trendingMoviesUrl,
   movieTrailerUrl,
   youtubeEmbedUrl,
+  contentImageUrl,
+  fetchByIdUrl,
+  fetchCreditsByIdUrl
 };

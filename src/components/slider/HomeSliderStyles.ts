@@ -10,7 +10,6 @@ export const CustomCarousel = styled(Carousel)`
     justify-content: center;
     align-items: center;
     position: absolute;
-    top: 50%;
     transform: translateY(-50%);
     z-index: 1;
     cursor: pointer;
@@ -221,4 +220,11 @@ export const StyledButton = {
   background: "#66b6d2",
   maxHeight: "36px",
   fontSize: "10px",
+};
+
+export const responsive = {
+  mobile: {
+    breakpoint: { max: 5000, min: 0 },
+    items: 1,
+  },
 };

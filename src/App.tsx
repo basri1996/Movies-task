@@ -22,7 +22,7 @@ function App() {
 
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/contentdetail :id" element={<ContentDetail />} />
+        <Route path="/contentdetail/:type/:id" element={<ContentDetail />} />
       </Routes>
       <Footer/>
     </ThemeProvider>

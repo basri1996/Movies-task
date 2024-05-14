@@ -1,24 +1,21 @@
 import {  createSlice } from "@reduxjs/toolkit";
 import { fetchMostPopularAsync } from "./MostPopularThunk";
+import { MostPopular } from "./MostPopularType";
 
-interface MostPopular {
-  movieData: Object[];
-  moviesStatus: "idle" | "loading" | "succeeded" | "failed";
-  moviesError: string | null;
-  tvSerialData: Object[];
-  tvSerialStatus: "idle" | "loading" | "succeeded" | "failed";
-  tvSerialError: string | null;
-}
 
 const initialState: MostPopular = {
-  movieData: [],
-  moviesStatus: "idle",
-  moviesError: null,
-  tvSerialData: [],
-  tvSerialStatus: "idle",
-  tvSerialError: null,
+  movie:{
+    movieData: [],
+    moviesStatus: "idle",
+    moviesError: null,
+  },
+  tv:{
+    tvSerialData: [],
+    tvSerialStatus: "idle",
+    tvSerialError: null,
+  }
+  
 };
-
 
 
 const MostPopularSlice = createSlice({
@@ -28,17 +25,17 @@ const MostPopularSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchMostPopularAsync.pending, (state) => {
-        state.moviesStatus = "loading";
+        state.movie.moviesStatus = "loading";
       })
       .addCase(fetchMostPopularAsync.fulfilled, (state, action) => {
-        state.moviesStatus = "succeeded";
+        state.movie.moviesStatus = "succeeded";
         action.payload.title === "movie"
-          ? (state.movieData = action.payload.data)
-          : (state.tvSerialData = action.payload.data);
+          ? (state.movie.movieData = action.payload.data)
+          : (state.tv.tvSerialData = action.payload.data);
       })
       .addCase(fetchMostPopularAsync.rejected, (state, action) => {
-        state.moviesStatus = "failed";
-        state.moviesError = action.error.message ?? "An error occurred";
+        state.movie.moviesStatus = "failed";
+        state.movie.moviesError = action.error.message ?? "An error occurred";
       });
   },
 });

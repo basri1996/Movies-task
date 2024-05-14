@@ -1,18 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchAllGenresAsync } from "./GenreThunk";
+import { GenreState } from "./GenreTypes";
 
- interface Genre {
-  genre: Object[];
-  status: "idle" | "loading" | "succeeded" | "failed";
-  error: string | null;
-}
 
-const initialState: Genre = {
+const initialState: GenreState = {
   genre: [],
   status: "idle",
   error: null,
 };
-
 
 const GenreSlice = createSlice({
   name: "genre",

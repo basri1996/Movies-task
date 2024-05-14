@@ -3,41 +3,25 @@ import {
   CustomCarousel,
   SectionTitle,
   ShopItemSectionWrapper,
+  responsive,
 } from "./SliderStyles";
 import "react-multi-carousel/lib/styles.css";
 import Slide from "./Slide";
 import { useEffect } from "react";
 import { fetchMostPopularAsync } from "../../redux/features/mostpopular/MostPopularThunk";
 import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../redux/StoreTypes";
 
-function Slider({ title }: any) {
+function Slider({ title }: { title: string }) {
   const dispatch = useDispatch<any>();
-  const { movieData, tvSerialData } = useSelector(
-    (state: any) => state.mostPopular
-  );
-  const responsive = {
-    superLargeDesktop: {
-      breakpoint: { max: 4000, min: 1301 },
-      items: 4,
-    },
-    desktop: {
-      breakpoint: { max: 1300, min: 1024 },
-      items: 3,
-    },
-    tablet: {
-      breakpoint: { max: 1023, min: 640 },
-      items: 2,
-    },
-    mobile: {
-      breakpoint: { max: 639, min: 0 },
-      items: 1,
-    },
-  };
+  const {
+    tv: { tvSerialData },
+    movie: { movieData },
+  } = useSelector((state: RootState) => state.mostPopular);
+  const MediaType = title === "Popular movies" ? "movie" : "tv";
 
   useEffect(() => {
-    dispatch(
-      fetchMostPopularAsync(title === "Popular movies" ? "movie" : "tv")
-    );
+    dispatch(fetchMostPopularAsync(MediaType));
   }, [title]);
 
   return (
@@ -62,7 +46,7 @@ function Slider({ title }: any) {
               deviceType={"desktop"}
             >
               {(title === "Popular movies" ? movieData : tvSerialData).map(
-                (film: any) => (
+                (film) => (
                   <Slide key={film.id} id={film.id} film={film} title={title} />
                 )
               )}

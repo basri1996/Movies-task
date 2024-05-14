@@ -10,8 +10,17 @@ import debounce from "debounce";
 import Modal from "./Modal";
 import { fetchSearchedAsync } from "../../redux/features/search/SearchThunk";
 import { SearchedImage, SearchedInformationWrapper, SearchedItemDescription, SearchedItemWrapper, SearchedItemsDivWrapper, Title, sx } from "./SearchComponentStyles";
+import { StyledLink } from "../slider/SliderStyles";
+import { contentImageUrl } from "../../redux/constants";
+import { SearchDataType } from "../../redux/features/search/SearchTypes";
 
-const SearchComponent = ({ inputValue ,Searched,searchedModalOpen}: any) => {
+interface Props {
+  inputValue:string;
+   Searched:SearchDataType[];
+   searchedModalOpen:boolean;
+}
+
+const SearchComponent = ({ inputValue ,Searched,searchedModalOpen}: Props) => {
   const dispatch = useDispatch<any>();
   const sendRequest = useCallback(
     async (value: string) => {
@@ -25,11 +34,10 @@ const SearchComponent = ({ inputValue ,Searched,searchedModalOpen}: any) => {
   );
 
   const debouncedSendRequest = useMemo(() => {
-    return debounce(sendRequest, 1000);
+    return debounce(sendRequest, 500);
   }, [sendRequest]);
 
-  const onChange = (e: any) => {
-    const value = e.target.value;
+  const onChange = (value: string) => {
     dispatch(setInputValue(value));
     debouncedSendRequest(value);
   };
@@ -48,7 +56,7 @@ const SearchComponent = ({ inputValue ,Searched,searchedModalOpen}: any) => {
       color="primary"
       disableUnderline={true}
       sx={sx}
-      onChange={onChange}
+      onChange={(e)=>onChange(e.target.value)}
     />
     {Searched && searchedModalOpen ? (
         <>
@@ -63,11 +71,12 @@ const SearchComponent = ({ inputValue ,Searched,searchedModalOpen}: any) => {
             {Searched.length === 0 && (
               <Title> cant find any information</Title>
             )}
-            {Searched.map((el: any) =>
-              el.backdrop_path && el.original_title ? (
+            {Searched.map((el) =>
+              el.poster_path && el.original_title ? (
+                <StyledLink to={`/contentdetail/${el.media_type}/${el.id}`}>
                 <SearchedItemWrapper key={el.id}>
                   <SearchedImage
-                    src={`https://image.tmdb.org/t/p/original${el.backdrop_path}`}
+                    src={contentImageUrl(el.poster_path)}
                     alt="searchedimg"
                   />
                   <SearchedInformationWrapper>
@@ -77,6 +86,7 @@ const SearchComponent = ({ inputValue ,Searched,searchedModalOpen}: any) => {
                     </SearchedItemDescription>
                   </SearchedInformationWrapper>
                 </SearchedItemWrapper>
+                </StyledLink>
               ) : null
             )}
           </SearchedItemsDivWrapper>
