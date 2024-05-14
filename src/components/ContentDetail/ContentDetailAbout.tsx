@@ -28,7 +28,8 @@ import { triggerVideoModal } from "../../redux/features/trending/TrendingMoviesS
 import SwiperSlider from "../slider/Test";
 import styled from "styled-components";
 import { ContentDetailObjectTypes } from "../../redux/features/contentdetail/ContentDetailTypes";
-import { RootState } from "../../redux/StoreTypes";
+import { RootState } from "../../redux/store/StoreTypes";
+import { AppDispatch } from "../../redux/store/store";
 
 
 interface Props {
@@ -36,7 +37,7 @@ interface Props {
 }
 
 const ContentDetailAbout =  ({ data }: Props) => {
-  const dispatch = useDispatch<any>();
+  const dispatch = useDispatch<AppDispatch>();
   const { filmUrl, videoModalOpen } = useSelector(
     (state: RootState) => state.trendingMovies
   );

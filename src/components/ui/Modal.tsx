@@ -1,5 +1,3 @@
-import React from "react";
-
 import ReactDOM from "react-dom";
 import { ModalContainer } from "./ModalStyles";
 
@@ -10,7 +8,7 @@ interface ModalVideoProps {
   isCentered:boolean
 }
 
-const Modal: React.FC<ModalVideoProps> = ({ children, isOpen, onClose, isCentered =true}) => {
+const Modal = ({ children, isOpen, onClose, isCentered =true}:ModalVideoProps) => {
   if (!isOpen) return null;
   return ReactDOM.createPortal(
     <ModalContainer isCentered={isCentered} onClick={onClose}>{children}</ModalContainer>,

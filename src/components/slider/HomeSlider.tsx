@@ -28,10 +28,11 @@ import { StyledLink } from "../slider/SliderStyles";
 import SearchComponent from "../ui/SearchComponent";
 import { fetchMovieTrailerAsync, fetchTrendyMoviesAsync } from "../../redux/features/trending/TrendingMoviesThunk";
 import { contentImageUrl } from "../../redux/constants";
-import { RootState } from "../../redux/StoreTypes";
+import { RootState } from "../../redux/store/StoreTypes";
+import { AppDispatch } from "../../redux/store/store";
 
 function HomeSlider() {
-  const dispatch = useDispatch<any>();
+  const dispatch = useDispatch<AppDispatch>();
   const {
     movieData,
     filmUrl,

@@ -10,10 +10,11 @@ import Slide from "./Slide";
 import { useEffect } from "react";
 import { fetchMostPopularAsync } from "../../redux/features/mostpopular/MostPopularThunk";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../redux/StoreTypes";
+import { RootState } from "../../redux/store/StoreTypes";
+import { AppDispatch } from "../../redux/store/store";
 
 function Slider({ title }: { title: string }) {
-  const dispatch = useDispatch<any>();
+  const dispatch = useDispatch<AppDispatch>();
   const {
     tv: { tvSerialData },
     movie: { movieData },

@@ -15,11 +15,12 @@ import {
 import arrow from "../../../public/assets/images/arrow.png"
 import arrow1 from "../../../public/assets/images/arrow1.png"
 import styled from "styled-components";
-import { RootState } from "../../redux/StoreTypes";
+import { RootState } from "../../redux/store/StoreTypes";
+import { AppDispatch } from "../../redux/store/store";
 
 
 const GenreSlide = () => {
-  const dispatch = useDispatch<any>();
+  const dispatch = useDispatch<AppDispatch>();
   const { genre} = useSelector(({genre}:RootState) => genre);
   const [swiper, setSwiper] = useState<any>(null);
   const { innerWidth } = useSizeDetector();

@@ -13,6 +13,7 @@ import { SearchedImage, SearchedInformationWrapper, SearchedItemDescription, Sea
 import { StyledLink } from "../slider/SliderStyles";
 import { contentImageUrl } from "../../redux/constants";
 import { SearchDataType } from "../../redux/features/search/SearchTypes";
+import { AppDispatch } from "../../redux/store/store";
 
 interface Props {
   inputValue:string;
@@ -21,7 +22,7 @@ interface Props {
 }
 
 const SearchComponent = ({ inputValue ,Searched,searchedModalOpen}: Props) => {
-  const dispatch = useDispatch<any>();
+  const dispatch = useDispatch<AppDispatch>();
   const sendRequest = useCallback(
     async (value: string) => {
       if (value !== "") {

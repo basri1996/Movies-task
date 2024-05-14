@@ -8,11 +8,12 @@ import {
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import Loader from "../components/ui/Loader";
-import { RootState } from "../redux/store";
+import { RootState } from "../redux/store/StoreTypes";
+import { AppDispatch } from "../redux/store/store";
 
 const ContentDetail = () => {
   const { id, type } = useParams();
-  const dispatch = useDispatch<any>();
+  const dispatch = useDispatch<AppDispatch>();
   const { data, status,credits } = useSelector((state: RootState) => state.contentdetail);
 
   console.log(credits)
