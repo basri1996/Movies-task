@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import {
   fetchByIdAsync,
   fetchCreditsByIdAsync,
+  fetchSimilarByIdAsync
 } from "../redux/features/contentdetail/ContentDetailThunk";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
@@ -14,13 +15,15 @@ import { AppDispatch } from "../redux/store/store";
 const ContentDetail = () => {
   const { id, type } = useParams();
   const dispatch = useDispatch<AppDispatch>();
-  const { data, status,credits } = useSelector((state: RootState) => state.contentdetail);
-
-  console.log(credits)
+  const { data, status} = useSelector((state: RootState) => state.contentdetail);
 
   useEffect(() => {
-    id && dispatch(fetchByIdAsync({ id, type }));
-    type && id && dispatch(fetchCreditsByIdAsync({ type, id }));
+    if(type && id){
+      dispatch(fetchByIdAsync({ id, type }));
+      dispatch(fetchCreditsByIdAsync({ type, id }));
+      dispatch(fetchSimilarByIdAsync({ type, id }))
+    }
+
   }, [id]);
   if (status === "loading") {
     return <Loader />;

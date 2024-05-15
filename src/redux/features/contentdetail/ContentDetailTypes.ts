@@ -23,6 +23,7 @@ export interface ContentDetailObjectTypes {
 export interface ContentDetailType {
   data: ContentDetailObjectTypes;
   credits: any;
+  similarMovies:any;
   status: "idle" | "loading" | "succeeded" | "failed";
   error: string | null;
 }

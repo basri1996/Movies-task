@@ -17,6 +17,7 @@
     "@stdlib/constants-time-minutes-in-hour": "^0.3.1",
     "@types/react-helmet": "^6.1.6",
     "@types/react-redux": "^7.1.33",
+    "@uidotdev/usehooks": "^2.4.1",
     "axios": "^1.4.0",
     "debounce": "^2.0.0",
     "dotenv": "^16.4.5",

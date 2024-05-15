@@ -6,12 +6,15 @@ import {
   Description,
   DetailsDiv,
   GenreItem,
+  GenreItemWrapper,
   GenreWrapper,
   Logo,
   MainContainer,
   OverView,
+  PlayerButton,
   PosterImage,
   RelativeDiv,
+  SliderWrapper,
   TagLine,
 } from "./ContentDetailAboutStyles";
 import logo from "../../../public/assets/images/logo.png";
@@ -25,11 +28,14 @@ import Modal from "../ui/Modal";
 import VideoPlayer from "../../components/VideoPlayer";
 import { useSelector } from "react-redux";
 import { triggerVideoModal } from "../../redux/features/trending/TrendingMoviesSlice";
-import SwiperSlider from "../slider/Test";
 import styled from "styled-components";
 import { ContentDetailObjectTypes } from "../../redux/features/contentdetail/ContentDetailTypes";
 import { RootState } from "../../redux/store/StoreTypes";
 import { AppDispatch } from "../../redux/store/store";
+import SwiperComponents from "../slider/SwiperComponents";
+import { useEffect } from "react";
+import CastMappedSlides from "../CastMappedSlides";
+import Slider from "../slider/Slider";
 
 
 interface Props {
@@ -41,10 +47,13 @@ const ContentDetailAbout =  ({ data }: Props) => {
   const { filmUrl, videoModalOpen } = useSelector(
     (state: RootState) => state.trendingMovies
   );
+  const similarMoviesData = useSelector(
+    (state: RootState) => state.contentdetail.similarMovies
+  );
   const releaseDate = (data?.release_date || data?.first_air_date)
     ?.split("-")[0]
     ?.toString();
-
+    
   function MinToHour(x: number) {
     const hrs = Math.floor(x / 60);
     const min = x % 60;
@@ -59,11 +68,14 @@ const ContentDetailAbout =  ({ data }: Props) => {
   const handleModal = () => {
     dispatch(triggerVideoModal());
   };
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  });
 
   if(!data) return null
 
   return (
-    <>
+    <div>
       <RelativeDiv>
         <BackgroundContainer
           src={contentImageUrl(data.backdrop_path)}
@@ -84,17 +96,18 @@ const ContentDetailAbout =  ({ data }: Props) => {
                 {data?.release_date}
                 {` (${data?.origin_country && data?.origin_country[0]})`}
               </GenreItem>
-
+              <GenreItemWrapper>
               {data?.genres?.map((genre) => (
                 <GenreItem key={genre.id}>{genre.name},</GenreItem>
               ))}
+              </GenreItemWrapper>
               <GenreItem>
                 {MinToHour(Number(data?.runtime || data?.episode_run_time))}
               </GenreItem>
             </GenreWrapper>
             <Rating readOnly value={ratingScore} size="small" />
             <ButtonWrapper>
-              <PlayButtonImage
+              <PlayerButton
                 onClick={() => handlePlay(data.id)}
                 src={playButton}
                 alt="play"
@@ -117,14 +130,14 @@ const ContentDetailAbout =  ({ data }: Props) => {
         )}
       </RelativeDiv>
       <SliderWrapper>
-        <SwiperSlider />
+       <SwiperComponents title={"Cast"}>
+        <CastMappedSlides/>
+       </SwiperComponents>
       </SliderWrapper>
-    </>
+      <Slider title={"Recommendations"} data={similarMoviesData} mediaType={MediaType}/>
+    </div>
   );
 };
 
 export default ContentDetailAbout;
 
-const SliderWrapper = styled.div`
-  padding: 50px 50px;
-`;

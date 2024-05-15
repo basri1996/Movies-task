@@ -9,9 +9,9 @@ const movieTrailerUrl = (movieId: number,type:string) =>
 const youtubeEmbedUrl = (urlKey: string) =>
   `https://www.youtube.com/embed/${urlKey}`;
 const contentImageUrl =(path :string)=> `https://image.tmdb.org/t/p/original${path}`
-const fetchByIdUrl =(id:number ,mediaType:string)=>`${mediaType}/${+id}?language=en-US`
-const fetchCreditsByIdUrl =(type:string , id:string)=>`${type}/${id}/credits
-`
+const fetchByIdUrl =(id:string ,mediaType:string)=>`${mediaType}/${+id}?language=en-US`
+const fetchCreditsByIdUrl =(type:string , id:string)=>`${type}/${id}/credits`
+const fetchSimilarByIdUrl =(type:string , id:string)=>`${type}/${id}/similar`
 
 export {
   mostPopularUrl,
@@ -22,5 +22,6 @@ export {
   youtubeEmbedUrl,
   contentImageUrl,
   fetchByIdUrl,
-  fetchCreditsByIdUrl
+  fetchCreditsByIdUrl,
+  fetchSimilarByIdUrl
 };

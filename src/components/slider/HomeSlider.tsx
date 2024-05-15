@@ -38,11 +38,6 @@ function HomeSlider() {
     filmUrl,
     videoModalOpen,
   } = useSelector(({trendingMovies}:RootState) => trendingMovies);
-  const {
-    data: Searched,
-    inputValue,
-    searchedModalOpen,
-  } = useSelector((state: RootState) => state.search);
   const { innerWidth } = useSizeDetector();
   const MediaType="movie"
 
@@ -80,9 +75,6 @@ function HomeSlider() {
             <LogoImg src={logo} alt="logo" />
             </StyledLink>
             <SearchComponent
-              inputValue={inputValue}
-              Searched={Searched}
-              searchedModalOpen={searchedModalOpen}
             />
           </HeaderDiv>
           <Wrapper>

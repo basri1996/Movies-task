@@ -19,17 +19,19 @@ export const ShopItemSectionWrapper = styled.div`
   align-items: center;
   margin-top: 40px;
   flex-direction: column;
-  @media (min-width: 600px) {
-    margin-top: 70px;
+  margin-top: 20px;
+  @media (min-width: 500px) {
+    margin-top: 20px;
   }
   @media (min-width: 1024px) {
-    margin-top: 100px;
+    margin-top: 30px;
   }
+  
 `;
 
 export const CarouselWrapper = styled.div`
   width: 337px;
-  padding-left: 25px;
+  padding-left: 26px;
   @media (min-width: 640px) {
     width: 647px;
   }

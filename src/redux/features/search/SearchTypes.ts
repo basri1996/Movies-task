@@ -10,7 +10,6 @@ export interface SearchDataType {
     data: SearchDataType[];
     status: "idle" | "loading" | "succeeded" | "failed";
     error: string | null;
-    inputValue: string;
     searchedModalOpen: boolean;
   }
   

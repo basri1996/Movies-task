@@ -1,31 +1,33 @@
 import { Input } from "@mui/material";
-import { useCallback, useMemo } from "react";
+import { useCallback, useEffect, useState } from "react";
 import {
   clearSearched,
-  setInputValue,
   triggerSearchedModal,
 } from "../../redux/features/search/SearchSlice";
 import { useDispatch } from "react-redux";
-import debounce from "debounce";
 import Modal from "./Modal";
 import { fetchSearchedAsync } from "../../redux/features/search/SearchThunk";
 import { SearchedImage, SearchedInformationWrapper, SearchedItemDescription, SearchedItemWrapper, SearchedItemsDivWrapper, Title, sx } from "./SearchComponentStyles";
 import { StyledLink } from "../slider/SliderStyles";
 import { contentImageUrl } from "../../redux/constants";
-import { SearchDataType } from "../../redux/features/search/SearchTypes";
 import { AppDispatch } from "../../redux/store/store";
+import { useDebounce } from "@uidotdev/usehooks";
+import { RootState } from "../../redux/store/StoreTypes";
+import { useSelector } from "react-redux";
 
-interface Props {
-  inputValue:string;
-   Searched:SearchDataType[];
-   searchedModalOpen:boolean;
-}
-
-const SearchComponent = ({ inputValue ,Searched,searchedModalOpen}: Props) => {
+const SearchComponent = () => {
+  const {
+    data: Searched,
+    searchedModalOpen,
+  } = useSelector((state: RootState) => state.search);
   const dispatch = useDispatch<AppDispatch>();
+  const [inputValue ,setInputvalue] = useState<string>("")
+  const debouncedValue = useDebounce<string>(inputValue, 800);
+
   const sendRequest = useCallback(
     async (value: string) => {
       if (value !== "") {
+        dispatch(triggerSearchedModal())
         dispatch(fetchSearchedAsync(value));
       } else {
         dispatch(clearSearched());
@@ -34,13 +36,12 @@ const SearchComponent = ({ inputValue ,Searched,searchedModalOpen}: Props) => {
     [dispatch]
   );
 
-  const debouncedSendRequest = useMemo(() => {
-    return debounce(sendRequest, 500);
-  }, [sendRequest]);
+  useEffect(() => {
+      sendRequest(debouncedValue);
+  }, [debouncedValue, sendRequest]);
 
   const onChange = (value: string) => {
-    dispatch(setInputValue(value));
-    debouncedSendRequest(value);
+    setInputvalue(value)
   };
 
   const handleModal2 = () => {

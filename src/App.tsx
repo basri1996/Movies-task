@@ -8,6 +8,8 @@ import Home from "./page/Home";
 import Footer from "./components/Footer";
 
 function App() {
+ 
+
   return (
     <ThemeProvider theme={defaultTheme}>
       <GlobalStyles />
@@ -19,12 +21,11 @@ function App() {
           rel="stylesheet"
         ></link>
       </Helmet>
-
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/contentdetail/:type/:id" element={<ContentDetail />} />
       </Routes>
-      <Footer/>
+      <Footer />
     </ThemeProvider>
   );
 }

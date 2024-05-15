@@ -49,12 +49,12 @@ export const CustomCarousel = styled(Carousel)`
 
 export const ImageFilm = styled.img`
   width: 100%;
-  height:300px;
+  height:250px;
   @media (min-width: 500px) {
-    height:400px
+    height:350px
   }
   @media (min-width: 768px) {
-    height: 600px
+    height: 500px
   }
   @media (min-width: 1054px) {
     height: 100vh
@@ -147,8 +147,6 @@ export const HeaderDiv = styled.div`
 `;
 export const LogoImg = styled.img`
   width: 100px;
- 
-
   @media (min-width: 500px) {
     width: 120px;
   }
@@ -193,14 +191,13 @@ export const TitleWrapper = styled.div`
 `;
 
 export const FilmTitle = styled.h1`
-  font-size: 12px;
-  
+  font-size: 10px;
   color: ${(props) => props.theme.colors.LightBlue};
   @media (min-width: 500px) {
-    font-size: 18px;
+    font-size: 14px;
   }
   @media (min-width: 768px) {
-    font-size: 30px;
+    font-size: 24px;
   }
   @media (min-width: 1054px) {
     font-size: 40px;

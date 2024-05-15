@@ -10,6 +10,8 @@ export const fetchSearchedAsync = createAsyncThunk(
         const response = await axiosInstance.get(
           SearchUrl(title,apiKey)
         );
+
+        console.log(response.data.results)
         return response.data.results;
       } catch (error) {
         console.error("Error fetching data:", error);

@@ -2,13 +2,10 @@ import { createSlice } from "@reduxjs/toolkit";
 import { fetchSearchedAsync } from "./SearchThunk";
 import { Search } from "./SearchTypes";
 
-
-
 const initialState: Search = {
   data: [],
   status: "idle",
   error: null,
-  inputValue: "",
   searchedModalOpen: false,
 };
 
@@ -19,9 +16,6 @@ const SearchSlice = createSlice({
   reducers: {
     clearSearched(state) {
       state.data = [];
-    },
-    setInputValue(state, action) {
-      state.inputValue = action.payload;
     },
     triggerSearchedModal(state) {
       state.searchedModalOpen = !state.searchedModalOpen;
@@ -44,7 +38,7 @@ const SearchSlice = createSlice({
   },
 });
 
-export const { clearSearched, setInputValue, triggerSearchedModal } =
+export const { clearSearched,triggerSearchedModal } =
   SearchSlice.actions;
 
 export default SearchSlice.reducer;

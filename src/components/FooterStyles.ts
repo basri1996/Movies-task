@@ -5,6 +5,7 @@ export const FooterWrapper = styled.div`
   width: 100%;
   height: 70px;
   padding: 20px 20px;
+  margin-top:40px;
   @media (min-width: 500px) {
     padding: 20px 30px;
   }
