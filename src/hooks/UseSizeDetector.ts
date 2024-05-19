@@ -9,7 +9,6 @@ function useSizeDetector() {
       setInnerHeight(window.innerHeight);
       setInnerWidth(window.innerWidth);
     };
-
     setInnerHeight(window.innerHeight);
     setInnerWidth(window.innerWidth);
 

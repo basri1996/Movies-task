@@ -3,7 +3,8 @@ export interface MostPopularType {
   original_name?: string;
   original_title?: string;
   vote_average: number;
-  poster_path: string;
+  poster_path?: string;
+  profile_path?:string
 }
 
 export interface MostPopular {

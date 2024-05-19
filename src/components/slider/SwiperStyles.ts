@@ -1,10 +1,23 @@
 import styled from "styled-components";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-import "swiper/css/scrollbar";
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
+import { Swiper, SwiperSlide } from 'swiper/react';
+
 
 export const CarouselWrapper = styled.div``;
+
+
+export const StyledSlides = styled(SwiperSlide)`
+  width: 285px;
+  height: 70px;
+  background: linear-gradient(to bottom, #2596be, #66b6d2, #92cbdf);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  border-radius: 50px;
+`;
 
 export const SwiperContainer = styled.div`
   overflow: hidden;
@@ -28,16 +41,22 @@ export const SwiperWrapper = styled.div`
   display: flex;
 `;
 
-export const SwiperSlide = styled.div`
-  width: 285px;
-  height: 70px;
-  background: linear-gradient(to bottom, #2596be, #66b6d2, #92cbdf);
+export const StyledSwiper = styled(Swiper)`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 16px;
-  border-radius:50px;
+  width: 260px;
+  @media (min-width: 640px) {
+    width: 596px;
+  }
+  @media (min-width: 1024px) {
+    width: 913px;
+  }
+  @media (min-width: 1301px) {
+    width: 1180px;
+  }
 `;
+
 export const SliderWrapper = styled.div`
   display: flex;
   justify-content: center;
@@ -73,7 +92,7 @@ export const SwiperWrapperMain = styled.div`
   flex-direction: column;
 `;
 
-export const SliderCastDiv = styled.div`
+export const SliderCastDiv = styled(SwiperSlide)`
   width: 285px;
   height: auto;
   display: flex;

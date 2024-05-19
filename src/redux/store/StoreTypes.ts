@@ -10,4 +10,5 @@ export interface RootState {
   mostPopular: MostPopular;
   search: Search;
   contentdetail: ContentDetailType;
+  person:any;
 }

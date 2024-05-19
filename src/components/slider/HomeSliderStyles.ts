@@ -1,8 +1,8 @@
-import Carousel from "react-multi-carousel";
-import styled from "styled-components";
+import Carousel from 'react-multi-carousel';
+import styled from 'styled-components';
 export const CustomCarousel = styled(Carousel)`
   .react-multiple-carousel__arrow {
-    background-color: ${(props) => props.theme.colors.LightBlue};
+    background-color: ${props => props.theme.colors.LightBlue};
     border-radius: 50%;
     width: 30px;
     height: 30px;
@@ -19,7 +19,7 @@ export const CustomCarousel = styled(Carousel)`
   }
 
   .react-multiple-carousel__arrow--left {
-    z-index:0;
+    z-index: 0;
     left: 20px;
     @media (min-width: 500px) {
       left: 30px;
@@ -33,7 +33,7 @@ export const CustomCarousel = styled(Carousel)`
   }
 
   .react-multiple-carousel__arrow--right {
-    z-index:0;
+    z-index: 0;
     right: 20px;
     @media (min-width: 500px) {
       right: 30px;
@@ -49,33 +49,32 @@ export const CustomCarousel = styled(Carousel)`
 
 export const ImageFilm = styled.img`
   width: 100%;
-  height:250px;
+  height: 250px;
   @media (min-width: 500px) {
-    height:350px
+    height: 350px;
   }
   @media (min-width: 768px) {
-    height: 500px
+    height: 500px;
   }
   @media (min-width: 1054px) {
-    height: 100vh
+    height: 100vh;
   }
 `;
 
 export const Title = styled.h1`
-font-size: 12px;
-width: 50px;
-@media (min-width: 768px) {
-  width: 100px;
-}
+  font-size: 12px;
+  width: 50px;
+  @media (min-width: 768px) {
+    width: 100px;
+  }
 `;
 export const Wrapper = styled.div`
-width: 100%;
+  width: 100%;
 `;
 export const HomeCarouselWrapper = styled.div`
-display: flex;
-position: relative;
+  display: flex;
+  position: relative;
 `;
-
 
 const center = () => `
   display:flex;
@@ -84,8 +83,8 @@ const center = () => `
 `;
 
 export const CenterDiv = styled.div`
- ${center()};`
-
+  ${center()};
+`;
 
 export const ArrowDiv = styled.div`
   width: 100%;
@@ -127,22 +126,25 @@ export const ArrowImg1 = styled.img`
   }
 `;
 export const ArrowImg2 = styled(ArrowImg1)``;
-export const HeaderDiv = styled.div`
- z-index:1000;
+export const HeaderDiv = styled.div<{ isScrolled: boolean }>`
+  z-index: 1000;
   position: absolute;
-  padding:0 20px;
-  top: 20px;
+  padding: 5px 20px;
   ${center};
-  justify-content:space-between;
-  width:100%;
+  justify-content: space-between;
+  width: 100%;
+  position: fixed;
+  background-color: ${props =>
+    props.isScrolled ? props.theme.colors.Blue : 'rgba(0,0,0,0.4)'};
+
   @media (min-width: 500px) {
-    padding:0 30px;
+    padding: 5px 30px;
   }
   @media (min-width: 768px) {
-    padding:0 40px;
+    padding: 5px 40px;
   }
   @media (min-width: 1054px) {
-    padding:0 50px;
+    padding: 5px 50px;
   }
 `;
 export const LogoImg = styled.img`
@@ -163,36 +165,34 @@ export const RelativeDiv = styled.div`
 `;
 
 export const TitleDiv = styled.div`
-width:100%;
+  width: 100%;
   position: absolute;
   ${center()};
-  padding:0 20px;
-  justify-content:space-between;
+  padding: 0 20px;
+  justify-content: space-between;
   bottom: 20px;
-  ;
-
   @media (min-width: 500px) {
-    padding:0 30px;
+    padding: 0 30px;
     bottom: 30px;
   }
   @media (min-width: 768px) {
-    padding:0 40px;
+    padding: 0 40px;
     bottom: 40px;
   }
   @media (min-width: 1054px) {
-    padding:0 50px;
+    padding: 0 50px;
     bottom: 50px;
   }
 `;
 
 export const TitleWrapper = styled.div`
   ${center()};
-  gap:10px;
+  gap: 10px;
 `;
 
 export const FilmTitle = styled.h1`
   font-size: 10px;
-  color: ${(props) => props.theme.colors.LightBlue};
+  color: ${props => props.theme.colors.LightBlue};
   @media (min-width: 500px) {
     font-size: 14px;
   }
@@ -205,18 +205,18 @@ export const FilmTitle = styled.h1`
 `;
 export const PlayButtonImage = styled(ArrowImg1)``;
 
-export const ButtonDiv=styled.div`
-display:flex;
-justify-content:center;
-align-items:center;
-height:36px;`
-
+export const ButtonDiv = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 36px;
+`;
 
 export const StyledButton = {
-  fontFamily: "Red Rose",
-  background: "#66b6d2",
-  maxHeight: "36px",
-  fontSize: "10px",
+  fontFamily: 'Red Rose',
+  background: '#66b6d2',
+  maxHeight: '36px',
+  fontSize: '10px',
 };
 
 export const responsive = {
@@ -225,3 +225,7 @@ export const responsive = {
     items: 1,
   },
 };
+
+export const sxButton = () => ({
+  '&:hover': { opacity: '0.7' },
+});

@@ -3,6 +3,7 @@ import { axiosInstance } from "../../../api/api";
 import {
   fetchByIdUrl,
   fetchCreditsByIdUrl,
+  fetchReviewsByIdUrl,
   fetchSimilarByIdUrl,
 } from "../../constants";
 
@@ -13,7 +14,6 @@ export const fetchByIdAsync = createAsyncThunk(
     return response.data;
   }
 );
-
 interface Props {
   id: string;
   type: string;
@@ -38,6 +38,19 @@ export const fetchSimilarByIdAsync = createAsyncThunk(
     try {
       const response = await axiosInstance.get(fetchSimilarByIdUrl(type, id));
       return response.data.results;
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      throw error;
+    }
+  }
+);
+
+export const fetchReviewsById = createAsyncThunk(
+  "contentdetail/fetchReviewsById",
+  async ({ id, type }: Props) => {
+    try {
+      const response = await axiosInstance.get(fetchReviewsByIdUrl(type, id));
+      return response.data.results
     } catch (error) {
       console.error("Error fetching data:", error);
       throw error;

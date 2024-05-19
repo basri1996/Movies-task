@@ -4,6 +4,7 @@ import GenreReducer from "../features/genre/GenreSlice";
 import MostPopularReducer from "../features/mostpopular/MostPopularSlice";
 import SearchReducer from "../features/search/SearchSlice";
 import ContentDetailReducer from "../features/contentdetail/ContentDetailSlice";
+import PersonReducer from "../features/person/PersonSlice"
 
 
 const store = configureStore({
@@ -13,6 +14,7 @@ const store = configureStore({
     mostPopular: MostPopularReducer,
     search: SearchReducer,
     contentdetail: ContentDetailReducer,
+    person:PersonReducer
   },
 });
 

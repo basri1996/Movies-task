@@ -1,8 +1,9 @@
 import ReactDOM from "react-dom";
 import { ModalContainer } from "./ModalStyles";
+import { ReactNode } from "react";
 
 interface ModalVideoProps {
-  children: any;
+  children: ReactNode;
   isOpen: boolean;
   onClose: () => void;
   isCentered:boolean

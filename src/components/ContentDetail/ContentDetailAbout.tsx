@@ -8,7 +8,6 @@ import {
   GenreItem,
   GenreItemWrapper,
   GenreWrapper,
-  Logo,
   MainContainer,
   OverView,
   PlayerButton,
@@ -17,32 +16,23 @@ import {
   SliderWrapper,
   TagLine,
 } from "./ContentDetailAboutStyles";
-import logo from "../../../public/assets/images/logo.png";
-import { StyledLink } from "../slider/SliderStyles";
 import { Rating } from "@mui/material";
-import { PlayButtonImage } from "../slider/HomeSliderStyles";
-import playButton from "../../../public/assets/images/play-button.png";
+import playButton from "../../assets/images/play-button.png";
 import { fetchMovieTrailerAsync } from "../../redux/features/trending/TrendingMoviesThunk";
 import { useDispatch } from "react-redux";
 import Modal from "../ui/Modal";
 import VideoPlayer from "../../components/VideoPlayer";
 import { useSelector } from "react-redux";
 import { triggerVideoModal } from "../../redux/features/trending/TrendingMoviesSlice";
-import styled from "styled-components";
-import { ContentDetailObjectTypes } from "../../redux/features/contentdetail/ContentDetailTypes";
 import { RootState } from "../../redux/store/StoreTypes";
 import { AppDispatch } from "../../redux/store/store";
-import SwiperComponents from "../slider/SwiperComponents";
 import { useEffect } from "react";
-import CastMappedSlides from "../CastMappedSlides";
 import Slider from "../slider/Slider";
+import Loader from "../ui/Loader";
+import ReviewsComponent from "../review/ReviewsComponent";
+import SwiperCast from "../slider/SwiperCast";
 
-
-interface Props {
-  data: ContentDetailObjectTypes | null;
-}
-
-const ContentDetailAbout =  ({ data }: Props) => {
+const ContentDetailAbout = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { filmUrl, videoModalOpen } = useSelector(
     (state: RootState) => state.trendingMovies
@@ -50,16 +40,19 @@ const ContentDetailAbout =  ({ data }: Props) => {
   const similarMoviesData = useSelector(
     (state: RootState) => state.contentdetail.similarMovies
   );
+  const { data, status, reviews } = useSelector(
+    (state: RootState) => state.contentdetail
+  );
   const releaseDate = (data?.release_date || data?.first_air_date)
     ?.split("-")[0]
     ?.toString();
-    
+
   function MinToHour(x: number) {
     const hrs = Math.floor(x / 60);
     const min = x % 60;
     return `${hrs > 1 ? `${hrs} hr` : ""} ${min} min`;
   }
-  const ratingScore = Math.round( data ? data?.vote_average * 10 : 0) * 0.05;
+  const ratingScore = Math.round(data ? data?.vote_average * 10 : 0) * 0.05;
   const MediaType = data?.original_name ? "tv" : "movie";
 
   const handlePlay = async (id: number) => {
@@ -72,7 +65,7 @@ const ContentDetailAbout =  ({ data }: Props) => {
     window.scrollTo(0, 0);
   });
 
-  if(!data) return null
+  if (status === "loading") return <Loader />;
 
   return (
     <div>
@@ -82,9 +75,7 @@ const ContentDetailAbout =  ({ data }: Props) => {
           alt="backdrop"
         ></BackgroundContainer>
         ;
-        <StyledLink to="/">
-          <Logo src={logo} alt="logo" />
-        </StyledLink>
+       
         <MainContainer>
           <PosterImage src={contentImageUrl(data.poster_path)} alt="logo" />
           <DetailsDiv>
@@ -97,9 +88,9 @@ const ContentDetailAbout =  ({ data }: Props) => {
                 {` (${data?.origin_country && data?.origin_country[0]})`}
               </GenreItem>
               <GenreItemWrapper>
-              {data?.genres?.map((genre) => (
-                <GenreItem key={genre.id}>{genre.name},</GenreItem>
-              ))}
+                {data?.genres?.map((genre) => (
+                  <GenreItem key={genre.id}>{genre.name},</GenreItem>
+                ))}
               </GenreItemWrapper>
               <GenreItem>
                 {MinToHour(Number(data?.runtime || data?.episode_run_time))}
@@ -130,14 +121,16 @@ const ContentDetailAbout =  ({ data }: Props) => {
         )}
       </RelativeDiv>
       <SliderWrapper>
-       <SwiperComponents title={"Cast"}>
-        <CastMappedSlides/>
-       </SwiperComponents>
+        <SwiperCast/>
       </SliderWrapper>
-      <Slider title={"Recommendations"} data={similarMoviesData} mediaType={MediaType}/>
+      <Slider
+        title={"Recommendations"}
+        data={similarMoviesData}
+        mediaType={MediaType}
+      />
+      <ReviewsComponent reviews={reviews} />
     </div>
   );
 };
 
 export default ContentDetailAbout;
-

@@ -36,7 +36,7 @@ export const CarouselWrapper = styled.div`
     width: 647px;
   }
   @media (min-width: 1024px) {
-    width: 957px;
+    width: 962px;
   }
   @media (min-width: 1301px) {
     padding-left: 13px;

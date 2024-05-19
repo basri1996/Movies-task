@@ -1,4 +1,4 @@
-import { createGlobalStyle } from "styled-components";
+import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyles = createGlobalStyle`
 *{
@@ -7,8 +7,12 @@ const GlobalStyles = createGlobalStyle`
   box-sizing: border-box;
 }
  body{
-background-color: ${(props) => props.theme.colors.VeryLightBlue};
+background-color: ${props => props.theme.colors.VeryLightBlue};
 font-family: 'Red Rose', sans-serif;
+ }
+
+ html{
+  scroll-behavior:smooth
  }
  `;
 

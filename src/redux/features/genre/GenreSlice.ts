@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchAllGenresAsync } from "./GenreThunk";
+import { fetchAllGenresAsync, fetchGenresAsync } from "./GenreThunk";
 import { GenreState } from "./GenreTypes";
 
 
@@ -7,6 +7,7 @@ const initialState: GenreState = {
   genre: [],
   status: "idle",
   error: null,
+  contentGenre:[]
 };
 
 const GenreSlice = createSlice({
@@ -26,6 +27,9 @@ const GenreSlice = createSlice({
       .addCase(fetchAllGenresAsync.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message ?? "An error occurred";
+      })
+      .addCase(fetchGenresAsync.fulfilled, (state, action) => {
+        state.contentGenre = action.payload;
       });
   },
 });

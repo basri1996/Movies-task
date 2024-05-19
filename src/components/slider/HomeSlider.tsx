@@ -1,60 +1,57 @@
-import "react-multi-carousel/lib/styles.css";
-import { useEffect} from "react";
-import {
-  triggerVideoModal,
-} from "../../redux/features/trending/TrendingMoviesSlice";
-import { useDispatch, useSelector } from "react-redux";
-import useSizeDetector from "../../hooks/useSizeDetector";
-import logo from "../../../public/assets/images/logo.png";
-import playButton from "../../../public/assets/images/play-button.png";
-import Modal from "../ui/Modal";
+import 'react-multi-carousel/lib/styles.css';
+import { useEffect } from 'react';
+import { triggerVideoModal } from '../../redux/features/trending/TrendingMoviesSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import playButton from '../../assets/images/play-button.png';
+import Modal from '../ui/Modal';
 import {
   CustomCarousel,
   HomeCarouselWrapper,
   ImageFilm,
   Wrapper,
   FilmTitle,
-  HeaderDiv,
-  LogoImg,
   PlayButtonImage,
   TitleDiv,
   TitleWrapper,
   StyledButton,
   responsive,
-} from "./HomeSliderStyles";
-import VideoPlayer from "../VideoPlayer";
-import { Button } from "@mui/material";
-import { StyledLink } from "../slider/SliderStyles";
-import SearchComponent from "../ui/SearchComponent";
-import { fetchMovieTrailerAsync, fetchTrendyMoviesAsync } from "../../redux/features/trending/TrendingMoviesThunk";
-import { contentImageUrl } from "../../redux/constants";
-import { RootState } from "../../redux/store/StoreTypes";
-import { AppDispatch } from "../../redux/store/store";
+  sxButton,
+} from './HomeSliderStyles';
+import VideoPlayer from '../VideoPlayer';
+import { Button, useMediaQuery, useTheme } from '@mui/material';
+import { StyledLink } from '../slider/SliderStyles';
+import {
+  fetchMovieTrailerAsync,
+  fetchTrendyMoviesAsync,
+} from '../../redux/features/trending/TrendingMoviesThunk';
+import { contentImageUrl } from '../../redux/constants';
+import { RootState } from '../../redux/store/StoreTypes';
+import { AppDispatch } from '../../redux/store/store';
+import Loader from '../ui/Loader';
 
 function HomeSlider() {
   const dispatch = useDispatch<AppDispatch>();
-  const {
-    movieData,
-    filmUrl,
-    videoModalOpen,
-  } = useSelector(({trendingMovies}:RootState) => trendingMovies);
-  const { innerWidth } = useSizeDetector();
-  const MediaType="movie"
+  const { movieData, filmUrl, videoModalOpen ,status} = useSelector(
+    ({ trendingMovies }: RootState) => trendingMovies
+  );
+  const MediaType = 'movie';
+  const theme = useTheme();
+  const isLargeScreen = useMediaQuery(theme.breakpoints.up('sm'));
 
- 
+
   useEffect(() => {
     dispatch(fetchTrendyMoviesAsync());
   }, [dispatch]);
 
   const handlePlay = async (id: number) => {
-    dispatch(fetchMovieTrailerAsync({id,MediaType}));
+    dispatch(fetchMovieTrailerAsync({ id, MediaType }));
   };
 
   const handleModal = () => {
     dispatch(triggerVideoModal());
   };
- 
- 
+
+  if(status === "loading")return <Loader/>
 
   return (
     <>
@@ -69,14 +66,6 @@ function HomeSlider() {
               <VideoPlayer url={filmUrl} />
             </Modal>
           )}
-
-          <HeaderDiv>
-            <StyledLink to="/">
-            <LogoImg src={logo} alt="logo" />
-            </StyledLink>
-            <SearchComponent
-            />
-          </HeaderDiv>
           <Wrapper>
             <CustomCarousel
               responsive={responsive}
@@ -87,36 +76,33 @@ function HomeSlider() {
               transitionDuration={300}
               containerClass="carousel-container"
             >
-              {movieData &&
-                movieData.map((film) => (
-                  <div key={film.id}>
-                    <ImageFilm
-                      src={contentImageUrl(film.backdrop_path)}
-                      alt="cover"
-                    />
-                    <TitleDiv>
-                      <TitleWrapper>
-                        <FilmTitle>{film?.original_title}</FilmTitle>
-                        <PlayButtonImage
-                          onClick={() => handlePlay(film.id)}
-                          src={playButton}
-                          alt="play"
-                        />
-                      </TitleWrapper>
-                      <StyledLink to={`/contentdetail/movie/${film.id}`}>
-                        <Button
-                          size={
-                            innerWidth && innerWidth > 500 ? "large" : "small"
-                          }
-                          style={StyledButton}
-                          sx={{ "&:hover": { opacity: "0.7" } }}
-                          variant="contained"
-                          children={"See more"}
-                        />
-                      </StyledLink>
-                    </TitleDiv>
-                  </div>
-                ))}
+              {movieData.map(film => (
+                <div key={film.id}>
+                  <ImageFilm
+                    src={contentImageUrl(film.backdrop_path)}
+                    alt="cover"
+                  />
+                  <TitleDiv>
+                    <TitleWrapper>
+                      <FilmTitle>{film?.original_title}</FilmTitle>
+                      <PlayButtonImage
+                        onClick={() => handlePlay(film.id)}
+                        src={playButton}
+                        alt="play"
+                      />
+                    </TitleWrapper>
+                    <StyledLink to={`/contentdetail/movie/${film.id}`}>
+                      <Button
+                        size={isLargeScreen ? 'large' : 'small'}
+                        style={StyledButton}
+                        sx={sxButton}
+                        variant="contained"
+                        children={'See more'}
+                      />
+                    </StyledLink>
+                  </TitleDiv>
+                </div>
+              ))}
             </CustomCarousel>
           </Wrapper>
         </HomeCarouselWrapper>
@@ -126,3 +112,6 @@ function HomeSlider() {
 }
 
 export default HomeSlider;
+
+
+

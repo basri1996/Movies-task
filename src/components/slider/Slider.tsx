@@ -15,10 +15,12 @@ import { MostPopularType } from "../../redux/features/mostpopular/MostPopularTyp
 
 function Slider({ title, data , mediaType}: { title: string; data: MostPopularType[] ;mediaType:string}) {
   const dispatch = useDispatch<AppDispatch>();
+
   
   useEffect(() => {
     dispatch(fetchMostPopularAsync(mediaType));
-  }, [title]);
+  }, [mediaType,dispatch,title]);
+
 
   return (
     <ShopItemSectionWrapper>
@@ -39,7 +41,7 @@ function Slider({ title, data , mediaType}: { title: string; data: MostPopularTy
           deviceType={"desktop"}
         >
           {data.map((film) => (
-            <Slide key={film.id} id={film.id} film={film} title={title} mediaType={mediaType} />
+            <Slide key={film.id} id={film.id} film={film}  mediaType={mediaType} />
           ))}
         </CustomCarousel>
       </CarouselWrapper>

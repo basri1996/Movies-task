@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchByIdAsync, fetchCreditsByIdAsync, fetchSimilarByIdAsync} from "./ContentDetailThunk";
+import { fetchByIdAsync, fetchCreditsByIdAsync, fetchReviewsById, fetchSimilarByIdAsync} from "./ContentDetailThunk";
 import { ContentDetailType } from "./ContentDetailTypes";
 
 const initialState: ContentDetailType = {
@@ -15,6 +15,7 @@ const initialState: ContentDetailType = {
   },
   credits: [],
   similarMovies:[],
+  reviews:[],
   status: "idle",
   error: null,
 };
@@ -41,7 +42,10 @@ const ContentDetailSlice = createSlice({
       })
       .addCase(fetchSimilarByIdAsync.fulfilled, (state, action) => {
         state.similarMovies = action.payload;
-      });
+      })
+      .addCase(fetchReviewsById.fulfilled, (state, action) => {
+        state.reviews = action.payload;
+      })
   },
 });
 

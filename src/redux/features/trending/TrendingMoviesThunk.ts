@@ -9,12 +9,8 @@ import {
 export const fetchTrendyMoviesAsync = createAsyncThunk(
   "trendingMovies/fetchTrendyMovies",
   async () => {
-    try {
-      const response = await axiosInstance.get(trendingMoviesUrl());
-      return response?.data.results;
-    } catch (error) {
-      throw error;
-    }
+    const response = await axiosInstance.get(trendingMoviesUrl());
+    return response?.data.results;
   }
 );
 interface Props {
@@ -25,12 +21,9 @@ interface Props {
 export const fetchMovieTrailerAsync = createAsyncThunk(
   "trendingMovies/fetchMovieTrailer",
   async ({ id, MediaType }: Props) => {
-    try {
-      const response = await axiosInstance.get(movieTrailerUrl(id, MediaType));
-      const Url = youtubeEmbedUrl(response.data.results[1]?.key);
-      return Url;
-    } catch (error) {
-      throw error;
-    }
+    console.log(typeof id)
+    const response = await axiosInstance.get(movieTrailerUrl(id, MediaType));
+    const Url = youtubeEmbedUrl(response.data.results[4]?.key);
+    return Url;
   }
 );

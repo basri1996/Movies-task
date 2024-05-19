@@ -1,24 +1,46 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const SearchedItemsDivWrapper = styled.div`
- 
   display: flex;
   flex-direction: column;
   gap: 10px;
   padding: 10px;
-  background-color: ${(props) => props.theme.colors.LightBlue};
+  background-color: ${props => props.theme.colors.LightBlue};
   position: absolute;
   right: 20px;
   top: 35px;
-  border-radius:10px;
+  border-radius: 10px;
   z-index: 999;
-  width:150px;
+  width: 150px;
+  max-height: 400px;
+  overflow-y: auto;
+
+  ::-webkit-scrollbar {
+    width: 12px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: ${props => props.theme.colors.Blue};
+    border-radius: 10px;
+    border-bottom-left-radius: 0px;
+    border-top-left-radius: 0px;
+  }
+  ::-webkit-scrollbar-track {
+    background-color: ${props => props.theme.colors.VeryLightBlue};
+    border-radius: 10px;
+    border-bottom-left-radius: 0px;
+    border-top-left-radius: 0px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: ${props => props.theme.colors.Blue};
+  }
+
   @media (min-width: 500px) {
     right: 30px;
   }
   @media (min-width: 768px) {
     top: 60px;
-    width:250px;
+    width: 250px;
   }
   @media (min-width: 768px) {
     right: 40px;
@@ -30,7 +52,7 @@ export const SearchedItemsDivWrapper = styled.div`
 export const Title = styled.h1`
   font-size: 12px;
   width: 50px;
-  color:${props=>props.theme.colors.Blue};
+  color: ${props => props.theme.colors.Blue};
   @media (min-width: 768px) {
     width: 100px;
   }
@@ -57,19 +79,29 @@ export const SearchedItemDescription = styled.p`
   width: 90%;
   height: 50px;
   overflow: hidden;
-  color:white;
+  color: white;
   @media (min-width: 768px) {
     height: 65px;
   }
 `;
 
-export const sx = {
-  backgroundColor: "#f5f5f5",
+
+export const sx = (theme:any) => ({
   borderRadius: "8px",
-  padding: innerWidth && innerWidth > 768 ? "10px" : "4px",
-  width: innerWidth && innerWidth < 768 ? "150px" : "250px",
-  fontSize: innerWidth && innerWidth > 768 ? "16px" : "9px",
+  backgroundColor: "#f5f5f5",
+  [theme.breakpoints.up('md')]: {
+    padding:"16px",
+    fontSize: "16px",
+    width:"250px",
+    height:"50px"
+  },
+  [theme.breakpoints.down('md')]: {
+    padding:"4px",
+    fontSize: "9px",
+    width:"200px",
+    height:"30px"
+  },
   "&:hover": {
     backgroundColor: "#e0e0e0",
   },
-};
+});

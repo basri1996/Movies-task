@@ -1,5 +1,5 @@
 import {  createSlice } from "@reduxjs/toolkit";
-import { fetchMostPopularAsync } from "./MostPopularThunk";
+import { fetchMostPopularAsync} from "./MostPopularThunk";
 import { MostPopular } from "./MostPopularType";
 
 
@@ -14,7 +14,6 @@ const initialState: MostPopular = {
     tvSerialStatus: "idle",
     tvSerialError: null,
   }
-  
 };
 
 
@@ -36,8 +35,10 @@ const MostPopularSlice = createSlice({
       .addCase(fetchMostPopularAsync.rejected, (state, action) => {
         state.movie.moviesStatus = "failed";
         state.movie.moviesError = action.error.message ?? "An error occurred";
-      });
+      })
   },
 });
+
+
 
 export default MostPopularSlice.reducer;

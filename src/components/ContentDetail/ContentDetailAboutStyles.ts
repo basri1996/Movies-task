@@ -53,7 +53,7 @@ export const MainContainer = styled.div`
   position: absolute;
   z-index: 0;
   gap: 40px;
-  padding: 0 20px;
+  padding: 0 15px;
   top: 50%;
    transform: translateY(-50%);
   @media (min-width: 500px) {
